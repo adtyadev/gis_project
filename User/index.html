@@ -9,64 +9,67 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
     <style>
         body{
-		padding: 0; 
-		margin: 0; 
-		text-align: center;
-		background-color: white;
-		font-family: arial;
-		color:black;
-	} 
-	input{
-		margin: 5px;
-	}
-	button{
-		margin: 5px; 
-	}
-	.container{
-		display: flex;
-		justify-content: center;
-	}
-	#howto{
-		width: 1000px;
-		border-radius: 10px;
-	}
-	table {
-		font-family: arial, sans-serif;
-		border-collapse: collapse;
-		width: 100%;
-	}
+        padding: 0; 
+        margin: 0; 
+        text-align: center;
+        background-color: white;
+        font-family: arial;
+        color:black;
+    } 
+    input{
+        margin: 5px;
+    }
+    button{
+        margin: 5px; 
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+    }
+    #howto{
+        width: 1000px;
+        border-radius: 10px;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-	td, th {
-		border: 1px solid #dddddd;
-		text-align: left;
-		padding: 5px;
-	}
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 5px;
+    }
 
-	tr:nth-child(even) {
-		background-color: #dddddd;
-	}
-	/* width */
-	::-webkit-scrollbar {
-		width: 5px;
-		position: absolute;
-	}
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+    /* width */
+    ::-webkit-scrollbar {
+        width: 5px;
+        position: absolute;
+    }
 
-	/* Track */
-	::-webkit-scrollbar-track {
-		background: #f1f1f1; 
-	}
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
 
-	/* Handle */
-	::-webkit-scrollbar-thumb {
-		background: #888; 
-	}
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888; 
+    }
 
-	/* Handle on hover */
-	::-webkit-scrollbar-thumb:hover {
-		background: #555; 
-	}
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+    }
 </style>
 </head>
 
@@ -153,8 +156,35 @@
                                 </div>
                             </div>
                         </div>
-                        <br/>
-                        <br/>
+                         <div class="accordion" id="accordionExample" style="width: 100%">
+                            <div class="card">
+                                <div class="card-header" style="padding: inherit; " id="headingThree">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                        Cluster 3 <img style="max-height: 10px" src="img/arrow/down.png">
+                                    </button>
+                                </div>
+                                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body" style="padding: 2%;">
+                                        <table>
+                                            <tr>
+                                                <td>Jakarta</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jakarta</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jakarta</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jakarta</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
                         <p class="card-text" id="information-left-card"> </p>
                     </div>
                 </div>
@@ -168,30 +198,30 @@
                 <div class="card-body">
                     <h5 class="card-title" id="title-main-card"></h5>
                     <img id="img-main-card" src="" style="width:100%;">
+                    <!--  <div class="row" >
+                        <div class="col-12" id="map" style=""> 
+                        
+                    </div> -->
                     <!-- <p class="card-text">Pusing kakkk</p> -->
                     <div class="input-group-sm">
                         <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-primary" style="margin: 10px">Information</a>
                         <a data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2" class="btn btn-primary" style="margin: 10px">Video</a>
                         <a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3" class="btn btn-primary" style="margin: 10px">Audio</a>
                     </div>
-                    <div class="row" style="max-width: 700px">
-                        <div class="col">
-                            <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                <div class="card card-body" id="information-main-card">
-                                    <table>
-                                        <tr>
-                                            <th>Cluster 1 <img src="img/pin/red.png" style="max-height: 25px"></th>
-                                            <th>Cluster 2 <img src="img/pin/blue.png" style="max-height: 25px"></th>
-                                            <th>Cluster 3 <img src="img/pin/purple.png" style="max-height: 25px"></th>
-                                        </tr>
-                                        <tr>
-                                            <td>Daerah Rawan Gempa </td>
-                                            <td>Daerah Siaga Gempa</td>
-                                            <td>Daerah Bahaya Gempa</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="card card-body" id="information-main-card">
+                            <table>
+                                <tr>
+                                    <th>Cluster 1 <img src="img/pin/red.png" style="max-height: 25px"></th>
+                                    <th>Cluster 2 <img src="img/pin/blue.png" style="max-height: 25px"></th>
+                                    <th>Cluster 3 <img src="img/pin/purple.png" style="max-height: 25px"></th>
+                                </tr>
+                                <tr>
+                                    <td>Daerah Rawan Gempa </td>
+                                    <td>Daerah Siaga Gempa</td>
+                                    <td>Daerah Bahaya Gempa</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -222,20 +252,40 @@
 </body>
 
 </html>
+<script>
+// var mymap = L.map('map').setView([51.505, -0.09], 13);
+
+// L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+//     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+//     maxZoom: 18,
+//     id: 'mapbox.streets',
+//     accessToken: 'your.mapbox.access.token'
+// }).addTo(mymap);
+
+// let map = L.map('map').setView([51.505, -0.09], 13);
+//             $("#map").attr("style","height : 500px");
+//             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+//             }).addTo(map);
+
+//             L.marker([51.505, -0.29]).addTo(map)
+//             .bindPopup('A pretty CSS3 popup.<br> Easily customizable.A pretty CSS3 popup.<br> Easily customizable.A pretty CSS3 popup.<br> Easily customizable.A pretty CSS3 popup.<br> Easily customizable.A pretty CSS3 popup.<br> Easily customizable.')
+//             .openPopup();
+</script>
 <script type="text/javascript">
 $(document).ready(function() {
     $("#click").click(function() {
         /*if ($("#disaster").val() == "Gempa Bumi" && $("#location").val() == "Surakarta" ) {
-					$("#main-card").text($("#disaster").val());
-					$("#title-main-card").text($("#location").val());
-					$("#img-main-card").attr("src","img/1.jpg");
-					$("#video-right-card").attr("src","https://www.youtube.com/embed/e7ho6z32yyo");
-					$("#audio-right-card").attr("src","audio/gempa.mp3");
-					$("#information-main-card").html("<b>"+ $('#location').val()+ "</b>, Joglosemarnews.com – “Bencana gempa bumi” mengguncang kompleks  SD Marsudirini Surakarta, Sabtu (31/8) pagi. Gempa ini mengakibatkan jatuhnya beberapa “korban” guru dan siswa.");
-					$("#information-left-card").html("<b>"+ $('#location').val()+ "</b>, Gempa bumi adalah getaran atau getar-getar yang terjadi di permukaan bumi akibat pelepasan energi dari dalam secara tiba-tiba yang menciptakan gelombang seismik. Gempa Bumi biasa disebabkan oleh pergerakan kerak Bumi (lempeng Bumi). Frekuensi suatu wilayah, mengacu pada jenis dan ukuran gempa Bumi yang dialami selama periode waktu. Gempa Bumi diukur dengan menggunakan alat Seismometer.");
-				}
+                    $("#main-card").text($("#disaster").val());
+                    $("#title-main-card").text($("#location").val());
+                    $("#img-main-card").attr("src","img/1.jpg");
+                    $("#video-right-card").attr("src","https://www.youtube.com/embed/e7ho6z32yyo");
+                    $("#audio-right-card").attr("src","audio/gempa.mp3");
+                    $("#information-main-card").html("<b>"+ $('#location').val()+ "</b>, Joglosemarnews.com – “Bencana gempa bumi” mengguncang kompleks  SD Marsudirini Surakarta, Sabtu (31/8) pagi. Gempa ini mengakibatkan jatuhnya beberapa “korban” guru dan siswa.");
+                    $("#information-left-card").html("<b>"+ $('#location').val()+ "</b>, Gempa bumi adalah getaran atau getar-getar yang terjadi di permukaan bumi akibat pelepasan energi dari dalam secara tiba-tiba yang menciptakan gelombang seismik. Gempa Bumi biasa disebabkan oleh pergerakan kerak Bumi (lempeng Bumi). Frekuensi suatu wilayah, mengacu pada jenis dan ukuran gempa Bumi yang dialami selama periode waktu. Gempa Bumi diukur dengan menggunakan alat Seismometer.");
+                }
 
-			});*/
+            });*/
         $("#main-card").text($("#disaster").val());
         $("#title-main-card").text($("#location").val());
         if ($("#disaster").val() == "Gempa Bumi" && $("#location").val() == "Surakarta") {
