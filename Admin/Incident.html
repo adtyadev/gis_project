@@ -108,16 +108,17 @@
                         <div class="col-lg-8 mb-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h6 class="text-uppercase mb-0">Data Province</h6>
+                                    <h6 class="text-uppercase mb-0">Data Incident</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-striped table-hover card-text">
                                         <thead>
                                             <tr>
-                                                <th>Id data</th>
+                                                <th>Id incident</th>
                                                 <th>Province</th>
-                                                <th>Longitude</th>
-                                                <th>Latitude</th>
+                                                <th>Disaster</th>
+                                                <th>Video Link</th>
+                                                <th>Audio Link</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -126,11 +127,13 @@
                                                 <td>Mark</td>
                                                 <td>Otto</td>
                                                 <td>Otto</td>
+                                                <td>Otto</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
                                                 <td>Jacob</td>
                                                 <td>Thornton</td>
+                                                <td>Otto</td>
                                                 <td>Otto</td>
                                             </tr>
                                             <tr>
@@ -138,17 +141,20 @@
                                                 <td>Larry</td>
                                                 <td>the Bird</td>
                                                 <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Sam</td>
-                                                <td>Nevoresky</td>
                                                 <td>Otto</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">3</th>
                                                 <td>Sam</td>
                                                 <td>Nevoresky</td>
+                                                <td>Otto</td>
+                                                <td>Otto</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td>Sam</td>
+                                                <td>Nevoresky</td>
+                                                <td>Otto</td>
                                                 <td>Otto</td>
                                             </tr>
                                         </tbody>
@@ -178,13 +184,28 @@
                                         <p>Lorem ipsum dolor sit amet consectetur.</p>
                                         <form>
                                             <div class="form-group">
-                                                <label class="form-control-label text-uppercase">Disaster</label>
-                                                <input type="text" placeholder="Earthquake" class="form-control">
+                                                <label class="form-control-label text-uppercase">Province</label>
+                                                <select name="province" class="form-control">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                </select>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-control-label text-uppercase">Detail Information</label>
-                                                <!-- <input type="text" placeholder="lorem ipsum " class="form-control"> -->
-                                                <textarea class="form-control" type="text"> </textarea>
+                                                <label class="form-control-label text-uppercase">Disaster</label>
+                                                <select name="disaster" class="form-control">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-control-label text-uppercase">Video Link</label>
+                                                <input type="text" placeholder="video" class="form-control">
+                                                <label class="form-control-label text-uppercase">Audio Link</label>
+                                                <input type="text" placeholder="audio" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" class="btn btn-primary">Insert</button>
@@ -234,15 +255,30 @@
                                         <div class="modal-body">
                                             <p>Lorem ipsum dolor sit amet consectetur.</p>
                                             <form>
-                                                <div class="form-group">
-                                                    <label class="form-control-label text-uppercase">Disaster</label>
-                                                    <input type="text" placeholder="Earthquake" class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="form-control-label text-uppercase">Detail Information</label>
-                                                    <!-- <input type="text" placeholder="lorem ipsum " class="form-control"> -->
-                                                    <textarea class="form-control" type="text"> </textarea>
-                                                </div>
+                                                 <div class="form-group">
+                                                <label class="form-control-label text-uppercase">Province</label>
+                                                <select name="province" class="form-control">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-control-label text-uppercase">Disaster</label>
+                                                <select name="disaster" class="form-control">
+                                                    <option>option 1</option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-control-label text-uppercase">Video Link</label>
+                                                <input type="text" placeholder="video" class="form-control">
+                                                <label class="form-control-label text-uppercase">Audio Link</label>
+                                                <input type="text" placeholder="audio" class="form-control">
+                                            </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
