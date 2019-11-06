@@ -29,6 +29,7 @@
 </head>
 
 <body>
+    <div id="app"> </div>
     <!-- navbar-->
     <header class="header">
         <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Dashboard Admin Page</a>
@@ -119,32 +120,8 @@
                                                 <th>Detail Information</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Sam</td>
-                                                <td>Nevoresky</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Sam</td>
-                                                <td>Nevoresky</td>
-                                            </tr>
+                                        <tbody id="show_data">
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -253,19 +230,45 @@
             </div>
         </div>
     </div>
-    <!-- JavaScript files-->
-    <script type="text/javascript">
-    $(document).ready(function() {
-                $("#click").click(function() {}
-    </script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="js/charts-home.js"></script>
-    <script src="js/front.js"></script>
 </body>
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"> </script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+<!-- <script src="vendor/chart.js/Chart.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<!-- <script src="js/charts-home.js"></script> -->
+<script src="js/front.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    tampil_data_barang(); //pemanggilan fungsi tampil barang.
+
+    //  $('#mydata').dataTable();
+
+    //fungsi tampil barang
+    function tampil_data_barang() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html = '';
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    html += '<tr>' +
+                        '<td scope="row">' + data[i].id_disaster + '</td>' +
+                        '<td>' + data[i].disaster + '</td>' +
+                        '<td>' + data[i].detail_information + '</td>' +
+                        '</tr>';
+                }
+                $('#show_data').html(html);
+            }
+
+        });
+    }
+})
+</script>
 
 </html>
