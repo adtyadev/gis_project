@@ -121,7 +121,6 @@
                                             </tr>
                                         </thead>
                                         <tbody id="show_data">
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -150,15 +149,15 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Disaster</label>
-                                                <input type="text" placeholder="Earthquake" class="form-control">
+                                                <input type="text" placeholder="Earthquake" name="disaster" id="disaster" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Detail Information</label>
                                                 <!-- <input type="text" placeholder="lorem ipsum " class="form-control"> -->
-                                                <textarea class="form-control" type="text"> </textarea>
+                                                <textarea class="form-control" name="detail_information" id="detail_information" type="text"> </textarea>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Insert</button>
+                                                <button type="button" id="button-add" class="btn btn-primary">Insert</button>
                                             </div>
                                         </form>
                                     </div>
@@ -174,19 +173,19 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">id data</label>
-                                                <input type="text" placeholder="id data" class="form-control">
+                                                <input type="text" placeholder="id data" id="id_disaster_view" name="id_disaster_view" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-lg-4">
-                                                        <button type="submit" class="btn btn-primary">View</button>
+                                                        <button type="button" id="button-view" class="btn btn-primary" data-toggle="modal" data-target="#myModal_view">View</button>
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                                                        <button type="button" id="button-edit" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
                                                             Edit</button>
                                                     </div>
                                                     <div class="col-lg-4">
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                        <button type="button" id="button-delete" class="btn btn-danger">Delete</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -194,7 +193,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Modal-->
+                            <!-- Modal edit-->
                             <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                                 <div role="document" class="modal-dialog">
                                     <div class="modal-content">
@@ -223,7 +222,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- End of Modal -->
+                            <!-- End of Modal Edit-->
+                            <!-- Model View -->
+                            <div id="myModal_view" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_view" aria-hidden="true" class="modal fade text-left">
+                                <div role="document" class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 id="exampleModalLabel_view" class="modal-title">Edit Disaster</h4>
+                                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                                        </div>
+                                        <div class="modal-body" id="body-modal-view">
+                                            <p>Lorem ipsum dolor sit amet consectetur.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Modal View -->
                         </div>
                     </div>
                 </section>
@@ -242,12 +260,12 @@
 <script src="js/front.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    tampil_data_barang(); //pemanggilan fungsi tampil barang.
+    retrive_data_disaster(); //call function retrive_data_disaster
 
     //  $('#mydata').dataTable();
 
-    //fungsi tampil barang
-    function tampil_data_barang() {
+    //function show data disaster 
+    function retrive_data_disaster() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
@@ -268,6 +286,71 @@ $(document).ready(function() {
 
         });
     }
+
+    //function add data disaster
+    $('#button-add').on('click', function() {
+        let disaster = $('#disaster').val();
+        let detail_information = $('#detail_information').val();
+        console.log(disaster + detail_information)
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/add_data_disaster.php',
+            dataType: "JSON",
+            data: { disaster: disaster, detail_information: detail_information },
+            success: function(data) {
+                //alert(data[0].message_success)
+                $('[name="disaster"]').val("");
+                $('[name="detail_information"]').val("");
+                /* $('#collapseExample1').removeClass();
+                 $('#collapseExample1').addClass("collapse");*/
+                retrive_data_disaster();
+            },
+            error: function() {
+                alert("hai")
+            }
+        });
+        return false;
+    });
+
+
+    //function view data disaster
+    $('#button-view').on('click', function() {
+        let id_disaster_view = $('#id_disaster_view').val();
+
+        console.log(id_disaster_view)
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/view_data_disaster.php',
+            dataType: "JSON",
+            data: { id_disaster_view: id_disaster_view },
+            success: function(data) {
+                alert("ss")
+                let html = '';
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    html += '<p>' + "disaster = " + data[i].disaster + '</p>' +
+                        '<p>' + "Detail Information" + '</p>' +
+                        '<p>' + data[i].detail_information + '</p>';
+                }
+                 $('#myModal_view').removeClass();
+                 $('#myModal_view').addClass("modal fade text-left show");
+                 $('#myModal_view').css({'display':'block','padding-right':'17'});
+                $('#body-modal-view').html(html);
+
+                //alert(data[0].message_success)
+
+                /* $('#collapseExample1').removeClass();
+                 $('#collapseExample1').addClass("collapse");*/
+                // retrive_data_disaster();
+            },
+            error: function(data) {
+
+                alert(data[0].disaster);
+            }
+        });
+        return false;
+    });
+
 })
 </script>
 
