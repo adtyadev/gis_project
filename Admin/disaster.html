@@ -129,7 +129,7 @@
                         <div class="col-lg-4 mb-5">
                             <div class="row">
                                 <div class="col-lg-6 mb-1">
-                                    <button class="btn btn-primary"  data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                                    <button class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
                                         Insert Data
                                     </button>
                                 </div>
@@ -216,7 +216,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                                            <button type="button" class="btn btn-primary" id="button-save-changes">Save changes</button>
+                                            <button type="submit" class="btn btn-primary" id="button-save-changes">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +235,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                                            <button type="button" class="btn btn-primary" >Save changes</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -257,6 +257,7 @@
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <!-- <script src="js/charts-home.js"></script> -->
 <script src="js/front.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     retrive_data_disaster(); //call function retrive_data_disaster
@@ -285,11 +286,11 @@ $(document).ready(function() {
     }
 
     //function collapse button
-        $('#collapseExample1').on('hidden.bs.collapse', function(){
+    $('#collapseExample1').on('hidden.bs.collapse', function() {
         $('#disaster').val('');
         $('#detail_information').val('');
     })
-        $('#collapseExample2').on('hidden.bs.collapse', function(){
+    $('#collapseExample2').on('hidden.bs.collapse', function() {
         $('#id_disaster').val('');
     })
     //function add data disaster
@@ -350,7 +351,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $('button-view').on('hidden.bs.modal', function(){
+    $('button-view').on('hidden.bs.modal', function() {
         $('#body-modal-view').remove('p');
     })
 
@@ -365,6 +366,7 @@ $(document).ready(function() {
             dataType: "JSON",
             data: { id_disaster: id_disaster },
             success: function(data) {
+                console.log(data[0].disaster)
                 // alert("ss")
                 let disaster = "";
                 let detail_information = "";
@@ -381,16 +383,113 @@ $(document).ready(function() {
             },
             error: function(data) {
 
-                alert(data[0].disaster);
+                alert("eror");
             }
         });
         return false;
     });
 
-    $('#button-save-changes').on('click', function(){
+    $('#button-save-changes').on('click', function() {
         let form_disaster_edit = $('#form_disaster_edit').val();
-        let form_detail_information_edit =  $('#form_detail_information_edit').val();
-        console.log(form_detail_information_edit + "hai");
+        let form_detail_information_edit = $('#form_detail_information_edit').val();
+        let id_disaster = $('#id_disaster').val();
+        console.log(form_detail_information_edit + "hai " + id_disaster);
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/edit_data_disaster.php',
+            dataType: "JSON",
+            data: { id_disaster: id_disaster, disaster: form_disaster_edit, detail_information: form_detail_information_edit },
+            success: function(data) {
+                // alert("ss")
+                let disaster = "";
+                let detail_information = "";
+
+                $('#myModal_edit').modal('hide');
+                $('#form_disaster_edit').val(disaster);
+                $('#form_detail_information_edit').val(detail_information);
+                retrive_data_disaster();
+            },
+            error: function(data) {
+                alert("eror");
+
+            }
+        })
+        return false;
+    })
+
+    $('#form_disaster_edit').keypress(function(e) {
+
+        var key = e.which;
+        if (key == 13) { // the enter key code
+            let form_disaster_edit = $('#form_disaster_edit').val();
+            let form_detail_information_edit = $('#form_detail_information_edit').val();
+            let id_disaster = $('#id_disaster').val();
+            console.log(form_detail_information_edit + "hai " + id_disaster);
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/edit_data_disaster.php',
+                dataType: "JSON",
+                data: { id_disaster: id_disaster, disaster: form_disaster_edit, detail_information: form_detail_information_edit },
+                success: function(data) {
+                    // alert("ss")
+                    let disaster = "";
+                    let detail_information = "";
+
+                    $('#myModal_edit').modal('hide');
+                    $('#form_disaster_edit').val(disaster);
+                    $('#form_detail_information_edit').val(detail_information);
+                    retrive_data_disaster();
+                },
+                error: function(data) {
+                    alert("eror");
+
+                }
+            })
+            return false;
+        }
+
+
+    })
+
+    // Function delete data disaster
+    $('#button-delete').on('click', function() {
+        let id_disaster = $('#id_disaster').val();
+        console.log(id_disaster);
+
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/view_data_disaster.php',
+            dataType: "JSON",
+            data: { id_disaster: id_disaster },
+            success: function(data) {
+                swal({
+                        title: "Are you sure want to delete " + data[0].disaster + " ?",
+                        text: "Once deleted, you will not be able to recover this imaginary file!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                type: "POST",
+                                url: 'http://localhost/GIS/admin/model/delete_data_disaster.php',
+                                dataType: "JSON",
+                                data: { id_disaster: id_disaster },
+                                success: function(data) {
+                                    swal("Poof! Your imaginary file has been deleted!", {
+                                        icon: "success",
+                                    })
+                                    retrive_data_disaster();
+                                }
+                            });
+                        } else {
+                            swal("Your imaginary file is safe!");
+                        }
+                    });
+
+            }
+        });
 
     })
 
