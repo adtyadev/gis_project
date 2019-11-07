@@ -129,12 +129,12 @@
                         <div class="col-lg-4 mb-5">
                             <div class="row">
                                 <div class="col-lg-6 mb-1">
-                                    <button class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                                    <button class="btn btn-primary"  data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
                                         Insert Data
                                     </button>
                                 </div>
                                 <div class="col-lg-6 mb-1">
-                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                                    <button class="btn btn-primary" id="collapse-manipulate-data" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
                                         Manipulate Data
                                     </button>
                                 </div>
@@ -173,7 +173,7 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">id data</label>
-                                                <input type="text" placeholder="id data" id="id_disaster_view" name="id_disaster_view" class="form-control">
+                                                <input type="text" placeholder="id data" id="id_disaster" name="id_disaster" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
@@ -194,7 +194,7 @@
                                 </div>
                             </div>
                             <!-- Modal edit-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                            <div id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                                 <div role="document" class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -202,22 +202,21 @@
                                             <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Lorem ipsum dolor sit amet consectetur.</p>
                                             <form>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Disaster</label>
-                                                    <input type="text" placeholder="Earthquake" class="form-control">
+                                                    <input type="text" placeholder="Earthquake" id="form_disaster_edit" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Detail Information</label>
                                                     <!-- <input type="text" placeholder="lorem ipsum " class="form-control"> -->
-                                                    <textarea class="form-control" type="text"> </textarea>
+                                                    <textarea class="form-control" id="form_detail_information_edit" type="text"> </textarea>
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-primary" id="button-save-changes">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +227,7 @@
                                 <div role="document" class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 id="exampleModalLabel_view" class="modal-title">Edit Disaster</h4>
+                                            <h4 id="exampleModalLabel_view" class="modal-title"></h4>
                                             <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                                         </div>
                                         <div class="modal-body" id="body-modal-view">
@@ -236,7 +235,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-primary" >Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -262,8 +261,6 @@
 $(document).ready(function() {
     retrive_data_disaster(); //call function retrive_data_disaster
 
-    //  $('#mydata').dataTable();
-
     //function show data disaster 
     function retrive_data_disaster() {
         $.ajax({
@@ -287,6 +284,14 @@ $(document).ready(function() {
         });
     }
 
+    //function collapse button
+        $('#collapseExample1').on('hidden.bs.collapse', function(){
+        $('#disaster').val('');
+        $('#detail_information').val('');
+    })
+        $('#collapseExample2').on('hidden.bs.collapse', function(){
+        $('#id_disaster').val('');
+    })
     //function add data disaster
     $('#button-add').on('click', function() {
         let disaster = $('#disaster').val();
@@ -315,33 +320,27 @@ $(document).ready(function() {
 
     //function view data disaster
     $('#button-view').on('click', function() {
-        let id_disaster_view = $('#id_disaster_view').val();
+        let id_disaster = $('#id_disaster').val();
 
-        console.log(id_disaster_view)
+        console.log(id_disaster)
         $.ajax({
             type: "POST",
             url: 'http://localhost/GIS/admin/model/view_data_disaster.php',
             dataType: "JSON",
-            data: { id_disaster_view: id_disaster_view },
+            data: { id_disaster: id_disaster },
             success: function(data) {
-                alert("ss")
-                let html = '';
+                // alert("ss")
+                let disaster_title = "";
+                let detail_information = "";
                 let i;
                 for (i = 0; i < data.length; i++) {
-                    html += '<p>' + "disaster = " + data[i].disaster + '</p>' +
-                        '<p>' + "Detail Information" + '</p>' +
-                        '<p>' + data[i].detail_information + '</p>';
+                    disaster_title = data[i].disaster;
+                    detail_information = '<p>' + data[i].detail_information + '</p>';
                 }
-                 $('#myModal_view').removeClass();
-                 $('#myModal_view').addClass("modal fade text-left show");
-                 $('#myModal_view').css({'display':'block','padding-right':'17'});
-                $('#body-modal-view').html(html);
 
-                //alert(data[0].message_success)
-
-                /* $('#collapseExample1').removeClass();
-                 $('#collapseExample1').addClass("collapse");*/
-                // retrive_data_disaster();
+                $('#myModal_view').modal('show');
+                $('#body-modal-view').html(detail_information);
+                $('#exampleModalLabel_view').text(disaster_title);
             },
             error: function(data) {
 
@@ -350,6 +349,50 @@ $(document).ready(function() {
         });
         return false;
     });
+
+    $('button-view').on('hidden.bs.modal', function(){
+        $('#body-modal-view').remove('p');
+    })
+
+    //function edit data disaster
+    $('#button-edit').on('click', function() {
+        let id_disaster = $('#id_disaster').val();
+
+        console.log(id_disaster)
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/view_data_disaster.php',
+            dataType: "JSON",
+            data: { id_disaster: id_disaster },
+            success: function(data) {
+                // alert("ss")
+                let disaster = "";
+                let detail_information = "";
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    disaster = data[i].disaster;
+                    detail_information = data[i].detail_information;
+                }
+
+                $('#myModal_edit').modal('show');
+                $('#form_disaster_edit').val(disaster);
+
+                $('#form_detail_information_edit').val(detail_information);
+            },
+            error: function(data) {
+
+                alert(data[0].disaster);
+            }
+        });
+        return false;
+    });
+
+    $('#button-save-changes').on('click', function(){
+        let form_disaster_edit = $('#form_disaster_edit').val();
+        let form_detail_information_edit =  $('#form_detail_information_edit').val();
+        console.log(form_detail_information_edit + "hai");
+
+    })
 
 })
 </script>
