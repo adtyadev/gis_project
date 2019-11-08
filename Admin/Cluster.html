@@ -31,7 +31,7 @@
 <body>
     <!-- navbar-->
     <header class="header">
-        <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="index.html" class="navbar-brand font-weight-bold text-uppercase text-base">Dashboard Admin Page</a>
+        <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow"><a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a><a href="disaster.html" class="navbar-brand font-weight-bold text-uppercase text-base">Dashboard Admin Page</a>
             <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
                 <li class="nav-item">
                     <form id="searchForm" class="ml-auto d-none d-lg-block">
@@ -87,7 +87,7 @@
         <div id="sidebar" class="sidebar py-3">
             <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">MAIN</div>
             <ul class="sidebar-menu list-unstyled">
-                <li class="sidebar-list-item"><a href="index.html" class="sidebar-link text-muted "><i class="o-home-1 mr-3 text-gray"></i><span>Disaster</span></a></li>
+                <li class="sidebar-list-item"><a href="disaster.html" class="sidebar-link text-muted "><i class="o-home-1 mr-3 text-gray"></i><span>Disaster</span></a></li>
                 <li class="sidebar-list-item"><a href="Cluster.html" class="sidebar-link text-muted active"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Cluster</span></a></li>
                 <li class="sidebar-list-item"><a href="#" data-toggle="collapse" data-target="#pages" aria-expanded="false" aria-controls="pages" class="sidebar-link text-muted"><i class="o-wireframe-1 mr-3 text-gray"></i><span>Location</span></a>
                     <div id="pages" class="collapse">
@@ -117,40 +117,10 @@
                                                 <th>Id cluster</th>
                                                 <th>Cluster</th>
                                                 <th>Disaster</th>
-                                                <th>Cluster Information</th>
+                                                <th>cluster_information</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Sam</td>
-                                                <td>Nevoresky</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Sam</td>
-                                                <td>Nevoresky</td>
-                                                <td>Otto</td>
-                                            </tr>
+                                        <tbody id="show_data">
                                         </tbody>
                                     </table>
                                 </div>
@@ -179,18 +149,19 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Cluster</label>
-                                                <input type="text" placeholder="Cluster 1" class="form-control">
+                                                <input type="text" placeholder="Cluster 1" id="cluster" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Disaster</label>
-                                                <input type="text" placeholder="Earthquake" class="form-control">
+                                                <select name="disaster" id="disaster" class="form-control">
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Cluster Information</label>
-                                                <input type="text" placeholder="Daerah Rawan" class="form-control">
+                                                <input type="text" placeholder="Daerah Rawan" id="cluster_information" class="form-control">
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Insert</button>
+                                                <button type="button" id="button-add" class="btn btn-primary">Insert</button>
                                             </div>
                                         </form>
                                     </div>
@@ -206,19 +177,16 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">id cluster</label>
-                                                <input type="text" placeholder="id cluster" class="form-control">
+                                                <input type="text" placeholder="id cluster" id="id_cluster" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <button type="submit" class="btn btn-primary">View</button>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                                                    <div class="col-lg-6">
+                                                        <button type="button" id="button-edit" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
                                                             Edit</button>
                                                     </div>
-                                                    <div class="col-lg-4">
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <div class="col-lg-6">
+                                                        <button type="button" id="button-delete" class="btn btn-danger">Delete</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -227,7 +195,7 @@
                                 </div>
                             </div>
                             <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                            <div id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                                 <div role="document" class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -239,15 +207,16 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Cluster</label>
-                                                    <input type="text" placeholder="Cluster 1" class="form-control">
+                                                    <input type="text" placeholder="Cluster 1" id="form_cluster_edit" class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Disaster</label>
-                                                    <input type="text" placeholder="Earthquake" class="form-control">
+                                                    <select name="disaster" id="form_disaster_edit" class="form-control">
+                                                </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Cluster Information</label>
-                                                    <input type="text" placeholder="Daerah Rawan" class="form-control">
+                                                    <input type="text" placeholder="Daerah Rawan" id="form_cluster_information_edit" class="form-control">
                                             </form>
                                         </div>
                                         <div class="modal-footer">
@@ -264,19 +233,135 @@
             </div>
         </div>
     </div>
-    <!-- JavaScript files-->
-    <script type="text/javascript">
-    $(document).ready(function() {
-                $("#click").click(function() {}
-    </script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="js/charts-home.js"></script>
-    <script src="js/front.js"></script>
 </body>
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"> </script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+<!--     <script src="vendor/chart.js/Chart.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<!--   <script src="js/charts-home.js"></script> -->
+<script src="js/front.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    retrive_data_cluster(); //call function retrive_data_disaster
+
+    //function show data disaster 
+    function retrive_data_cluster() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_cluster.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html = '';
+                let i;
+
+                for (i = 0; i < data.length; i++) {
+                    html += '<tr>' +
+                        '<td scope="row">' + data[i].id_cluster + '</td>' +
+                        '<td>' + data[i].cluster + '</td>' +
+                        '<td>' + data[i].disaster + '</td>' +
+                        '<td>' + data[i].cluster_information + '</td>' +
+                        '</tr>';
+                }
+                $('#show_data').html(html);
+                retrive_data_disaster();
+            }
+
+        });
+    }
+
+    function retrive_data_disaster() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html_option = '';
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    html_option += '<option value="' + data[i].id_disaster + '">' + data[i].disaster + '</option>';
+                }
+                $('#disaster').html(html_option);
+                $('#form_disaster_edit').html(html_option);
+            }
+
+        });
+    }
+
+    //function add data disaster
+    $('#collapseExample1').on('hidden.bs.collapse', function() {
+        $('#cluster').val('');
+        $('#cluster_information').val('');
+    })
+    $('#collapseExample2').on('hidden.bs.collapse', function() {
+        $('#id_cluster').val('');
+    })
+
+    $('#button-add').on('click', function() {
+        let cluster = $('#cluster').val();
+        let id_disaster = $('#disaster').val();
+        let cluster_information = $('#cluster_information').val();
+        console.log(cluster + cluster_information);
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/add_data_cluster.php',
+            dataType: "JSON",
+            data: { cluster: cluster, id_disaster: id_disaster, cluster_information: cluster_information },
+            success: function(data) {
+                alert(data[0].message_success)
+                $('[name="cluster"]').val("");
+                $('[name="cluster_information"]').val("");
+                /* $('#collapseExample1').removeClass();
+                 $('#collapseExample1').addClass("collapse");*/
+                retrive_data_cluster();
+            },
+            error: function() {
+                alert("hai")
+            }
+        });
+        return false;
+    });
+
+    //function edit data disaster
+    $('#button-edit').on('click', function() {
+        let id_cluster = $('#id_cluster').val();
+
+        console.log(id_cluster)
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/view_data_cluster.php',
+            dataType: "JSON",
+            data: { id_cluster: id_cluster },
+            success: function(data) {
+                console.log(data[0].cluster)
+                // alert("ss")
+                let cluster = "";
+                let cluster_information = "";
+                let id_disaster = "";
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    cluster = data[i].cluster;
+                    id_disaster = data[i].id_disaster;
+                    cluster_information = data[i].cluster_information;
+                }
+
+                $('#myModal_edit').modal('show');
+                $('#form_cluster_edit').val(cluster);
+                $('#form_disaster_edit').val(id_disaster);
+                $('#form_cluster_information_edit').val(cluster_information);
+            },
+            error: function(data) {
+
+                alert("eror");
+            }
+        });
+        return false;
+    });
+})
+</script>
 
 </html>
