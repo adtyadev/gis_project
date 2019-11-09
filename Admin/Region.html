@@ -75,7 +75,7 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown ml-auto"><a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="img/avatar-6.jpg" alt="Jason Doe" style="max-width: 2.5rem;" class="img-fluid rounded-circle shadow"></a>
-                    <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">Mark Stephen</strong><small>Web Developer</small></a>
+                    <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">ADTYADEV</strong><small>Web Developer</small></a>
                         <div class="dropdown-divider"></div><a href="#" class="dropdown-item">Settings</a><a href="#" class="dropdown-item">Activity log </a>
                         <div class="dropdown-divider"></div><a href="login.html" class="dropdown-item">Logout</a>
                     </div>
@@ -123,52 +123,7 @@
                                                 <th>Latitude</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">5</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                            </tr>
+                                        <tbody id="show_data">
                                         </tbody>
                                     </table>
                                 </div>
@@ -197,54 +152,38 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Province</label>
-                                                <select name="province" class="form-control">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
+                                                <select name="province" id="province" class="form-control">
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Region</label>
-                                                <select name="region" class="form-control">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                </select>
+                                                <input name="region" class="form-control" id="region">
+                                                </input>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Disaster</label>
-                                                <select name="disaster" class="form-control">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
+                                                <select name="disaster" id="disaster" class="form-control">
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Cluster</label>
-                                                <select name="account" class="form-control">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
+                                                <select name="cluster" id="cluster" class="form-control">
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <label class="form-control-label text-uppercase">Longitude</label>
-                                                        <input type="number" placeholder="Longitude" class="form-control">
+                                                        <input type="number" placeholder="Longitude" id="longitude" class="form-control">
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <label class="form-control-label text-uppercase">latitude</label>
-                                                        <input type="number" placeholder="Latitude" class="form-control">
+                                                        <input type="number" placeholder="Latitude" id="latitude" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Insert</button>
+                                                <button type="button" id="button-add" class="btn btn-primary">Insert</button>
                                             </div>
                                         </form>
                                     </div>
@@ -260,19 +199,16 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">id Region</label>
-                                                <input type="text" placeholder="id data" class="form-control">
+                                                <input type="text" placeholder="id data" id="id_region" class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <button type="submit" class="btn btn-primary">View</button>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                                                    <div class="col-lg-6">
+                                                        <button type="button" id="button-edit" class="btn btn-warning" data-toggle="modal" data-target="#myModal_edit">
                                                             Edit</button>
                                                     </div>
-                                                    <div class="col-lg-4">
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <div class="col-lg-6">
+                                                        <button type="button" id="button-delete" class="btn btn-danger">Delete</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -281,7 +217,7 @@
                                 </div>
                             </div>
                             <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                            <div id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                                 <div role="document" class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -293,49 +229,33 @@
                                             <form>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Province</label>
-                                                    <select name="province" class="form-control">
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                        <option>option 3</option>
-                                                        <option>option 4</option>
+                                                    <select name="province" class="form-control" id="form_province_edit">
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Region</label>
-                                                    <select name="region" class="form-control">
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                        <option>option 3</option>
-                                                        <option>option 4</option>
-                                                    </select>
+                                                    <input name="region" class="form-control" id="form_region_edit">
+                                                    </input>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Disaster</label>
-                                                    <select name="disaster" class="form-control">
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                        <option>option 3</option>
-                                                        <option>option 4</option>
+                                                    <select name="disaster" class="form-control" id="form_disaster_edit">
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="form-control-label text-uppercase">Cluster</label>
-                                                    <select name="account" class="form-control">
-                                                        <option>option 1</option>
-                                                        <option>option 2</option>
-                                                        <option>option 3</option>
-                                                        <option>option 4</option>
+                                                    <select name="cluster" class="form-control" id="form_cluster_edit">
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <label class="form-control-label text-uppercase">Longitude</label>
-                                                            <input type="number" placeholder="Longitude" class="form-control">
+                                                            <input type="number" placeholder="Longitude" class="form-control" id="form_longitude_edit">
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <label class="form-control-label text-uppercase">latitude</label>
-                                                            <input type="number" placeholder="Latitude" class="form-control">
+                                                            <input type="number" placeholder="Latitude" class="form-control" id="form_latitude_edit">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -343,7 +263,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" id="button-save-changes" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -355,19 +275,236 @@
             </div>
         </div>
     </div>
-    <!-- JavaScript files-->
-    <script type="text/javascript">
-    $(document).ready(function() {
-                $("#click").click(function() {}
-    </script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="js/charts-home.js"></script>
-    <script src="js/front.js"></script>
 </body>
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"> </script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+<!--     <script src="vendor/chart.js/Chart.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<!--     <script src="js/charts-home.js"></script> -->
+<script src="js/front.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    get_data_region(); //call function retrive_data_disaster
+
+    //function show data disaster 
+    function get_data_region() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_region.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html = '';
+                let i;
+
+                for (i = 0; i < data.length; i++) {
+                    html += '<tr>' +
+                        '<td scope="row">' + data[i].id_region + '</td>' +
+                        '<td>' + data[i].region + '</td>' +
+                        '<td>' + data[i].province + '</td>' +
+                        '<td>' + data[i].cluster + '</td>' +
+                        '<td>' + data[i].disaster + '</td>' +
+                        '<td>' + data[i].longitude + '</td>' +
+                        '<td>' + data[i].latitude + '</td>' +
+                        '</tr>';
+                }
+                $('#show_data').html(html);
+                get_data_region();
+                retrive_data_disaster()
+                retrive_data_province()
+                retrive_data_cluster()
+            }
+
+        });
+    }
+
+    function retrive_data_disaster() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html_option = '';
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    html_option += '<option value="' + data[i].id_disaster + '">' + data[i].disaster + '</option>';
+                }
+                $('#disaster').html(html_option);
+                $('#form_disaster_edit').html(html_option);
+            }
+
+        });
+    }
+
+    function retrive_data_province() {
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_province.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html_option = '';
+                let i;
+
+                for (i = 0; i < data.length; i++) {
+                    html_option += '<option value="' + data[i].id_province + '">' + data[i].province + '</option>';
+                }
+                $('#province').html(html_option);
+                $('#form_province_edit').html(html_option);
+            }
+
+        });
+    }
+
+    function retrive_data_cluster() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_cluster.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html_option = '';
+                let i;
+
+                for (i = 0; i < data.length; i++) {
+                    html_option += '<option value="' + data[i].id_cluster + '">' + data[i].cluster + '</option>';
+                }
+                $('#cluster').html(html_option);
+                $('#form_cluster_edit').html(html_option);
+            }
+
+        });
+    }
+
+    //function add data disaster
+    $('#collapseExample1').on('hidden.bs.collapse', function() {
+        $('#province').val('');
+        $('#region').val('');
+        $('#disaster').val('');
+        $('#cluster').val('');
+        $('#longitude').val('');
+        $('#latitude').val('');
+
+    })
+    $('#collapseExample2').on('hidden.bs.collapse', function() {
+        $('#id_region').val('');
+    })
+
+    $('#button-add').on('click', function() {
+        let province = $('#province').val();
+        let region = $('#region').val();
+        let disaster = $('#disaster').val();
+        let cluster = $('#cluster').val();
+        let longitude = $('#longitude').val();
+        let latitude = $('#latitude').val();
+
+        console.log(cluster);
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/add_data_region.php',
+            dataType: "JSON",
+            data: { province: province, region: region, disaster: disaster, cluster: cluster, longitude: longitude, latitude: latitude },
+            success: function(data) {
+                alert(data[0].message_success)
+                $('#province').val('');
+                ('#region').val('');
+                $('#disaster').val('');
+                $('#cluster').val('');
+                $('#longitude').val('');
+                $('#latitude').val('');
+
+                retrive_data_region();
+            },
+            error: function() {
+                alert("Error")
+            }
+        });
+        return false;
+    });
+
+    //function edit data disaster
+    $('#button-edit').on('click', function() {
+        let id_region = $('#id_region').val();
+
+        console.log(id_region)
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/view_data_region.php',
+            dataType: "JSON",
+            data: { id_region: id_region },
+            success: function(data) {
+                console.log(data[0].region)
+                // alert("ss")
+                let province = '';
+                let region = '';
+                let disaster = '';
+                let cluster = '';
+                let longitude = '';
+                let latitude = '';
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    id_province = data[i].id_province;
+                    id_disaster = data[i].id_disaster;
+                    id_cluster = data[i].id_cluster;
+                    region = data[i].region;
+                    longitude = data[i].longitude;
+                    latitude = data[i].latitude;
+                }
+
+                $('#myModal_edit').modal('show');
+                $('#form_province_edit').val(id_province);
+                $('#form_region_edit').val(region);
+                $('#form_disaster_edit').val(id_disaster);
+                $('#form_cluster_edit').val(id_cluster);
+                $('#form_longitude_edit').val(longitude);
+                $('#form_latitude_edit').val(latitude);
+            },
+            error: function(data) {
+
+                alert("eror");
+            }
+        });
+    });
+
+    $('#button-save-changes').on('click', function() {
+        let id_cluster = $('#id_cluster').val();
+        let cluster = $('#form_cluster_edit').val();
+        let id_disaster = $('#form_disaster_edit').val();
+        let cluster_information = $('#form_cluster_information_edit').val();
+        // console.log(form_detail_information_edit + "hai " + id_disaster);
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/edit_data_cluster.php',
+            dataType: "JSON",
+            data: { id_cluster: id_cluster, cluster: cluster, id_disaster: id_disaster, cluster_information: cluster_information },
+            success: function(data) {
+                // alert("ss")
+                let cluster = "";
+                let id_disaster = "";
+                let cluster_information = "";
+
+                $('#myModal_edit').modal('hide');
+                $('#form_cluster_edit').val(cluster);
+                $('#form_disaster_edit').val(form_disaster_edit);
+                $('#form_cluster_information_edit').val(cluster_information);
+                retrive_data_cluster();
+            },
+            error: function(data) {
+                alert("eror");
+
+            }
+        })
+        return false;
+    })
+
+
+})
+</script>
 
 </html>
