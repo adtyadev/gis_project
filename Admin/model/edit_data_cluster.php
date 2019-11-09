@@ -13,7 +13,7 @@ mysqli_query($mysqli, "UPDATE `cluster` SET `cluster` = '$cluster',`id_disaster`
 $data=array();
 
 	$data[]=array(
-		'message_success'=>"Data deleted successfuly"
+		'message_success'=>"Data edited successfuly"
 	);
 
 //encode json data

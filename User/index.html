@@ -12,245 +12,187 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
-    <style>
-        body{
-        padding: 0; 
-        margin: 0; 
-        text-align: center;
-        background-color: white;
-        font-family: arial;
-        color:black;
-    } 
-    input{
-        margin: 5px;
-    }
-    button{
-        margin: 5px; 
-    }
-    .container{
-        display: flex;
-        justify-content: center;
-    }
-    #howto{
-        width: 1000px;
-        border-radius: 10px;
-    }
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    td, th {
-        border: 1px solid #dddddd;
-        text-align: left;
-        padding: 5px;
-    }
-
-    tr:nth-child(even) {
-        background-color: #dddddd;
-    }
-    /* width */
-    ::-webkit-scrollbar {
-        width: 5px;
-        position: absolute;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1; 
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #888; 
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555; 
-    }
-</style>
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
 
 <body>
     <div class="layout-first" style="padding: 1%">
-    <div class="container">
-        <h2>Sistem Informasi Geografis</h2>
-    </div>
-    <div class="input-group-sm" style="width:100%;height:auto;background-color:white;z-index:50;  display: flex;flex-wrap: wrap;align-items: center;justify-content: center; ">
-        <select style="width: 20%;margin: 15px" class="form-control" placeholder="input 1" type="text" name="disaster" id="disaster">
-            <option> Gempa Bumi</option>
-            <option> Banjir</option>
-            <option> Tornado</option>
-            <option> Tsunami</option>
-            <option> Tanah Longsor</option>
-        </select>
-        <select style="width: 20%;margin: 15px" class="form-control" placeholder="input 2" type="text" name="location" id="location">
-            <option> Surakarta</option>
-            <option> Jakarta</option>
-            <option> Bandung</option>
-            <option> Semarang</option>
-            <option> Jogjakarta</option>
-        </select>
-        <a class="btn btn-secondary" role="submit" id="click" href="#"> Find </a>
-    </div>
-    <div class="row" style="margin: 10px">
-        <div class="col-3">
-            <div class="card">
-                <div class="card-header">
-                    Information
-                </div>
-                <div class="card-body collapse multi-collapse1" id="multiCollapseExample1">
-                    <div class="row">
-                        <div class="accordion" id="accordionExample" style="width: 100%">
-                            <div class="card">
-                                <div class="card-header" style="padding: inherit; " id="headingOne">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Cluster 1 <img style="max-height: 10px" src="img/arrow/down.png">
-                                    </button>
-                                </div>
-                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body" style="padding: 2%;">
-                                        <table>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                        </table>
+        <div class="container">
+            <h2>Sistem Informasi Geografis</h2>
+        </div>
+        <div class="input-group-sm" style="width:100%;height:auto;background-color:white;z-index:50;  display: flex;flex-wrap: wrap;align-items: center;justify-content: center; ">
+            <select style="width: 20%;margin: 15px" class="form-control" placeholder="input 1" type="text" name="disaster" id="disaster">
+                <option> Gempa Bumi</option>
+                <option> Banjir</option>
+                <option> Tornado</option>
+                <option> Tsunami</option>
+                <option> Tanah Longsor</option>
+            </select>
+            <select style="width: 20%;margin: 15px" class="form-control" placeholder="input 2" type="text" name="location" id="location">
+                <option> Surakarta</option>
+                <option> Jakarta</option>
+                <option> Bandung</option>
+                <option> Semarang</option>
+                <option> Jogjakarta</option>
+            </select>
+            <a class="btn btn-secondary" role="submit" id="click" href="#"> Find </a>
+        </div>
+        <div class="row" style="margin: 10px">
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-header">
+                        Information
+                    </div>
+                    <div class="card-body collapse multi-collapse1" id="multiCollapseExample1">
+                        <div class="row">
+                            <div class="accordion" id="accordionExample" style="width: 100%">
+                                <div class="card">
+                                    <div class="card-header" style="padding: inherit; " id="headingOne">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            Cluster 1 <img style="max-height: 10px" src="img/arrow/down.png">
+                                        </button>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body" style="padding: 2%;">
+                                            <table>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="accordion" id="accordionExample" style="width: 100%">
-                            <div class="card">
-                                <div class="card-header" style="padding: inherit; " id="headingTwo">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                        Cluster 2 <img style="max-height: 10px" src="img/arrow/down.png">
-                                    </button>
-                                </div>
-                                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                    <div class="card-body" style="padding: 2%;">
-                                        <table>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                        </table>
+                            <div class="accordion" id="accordionExample" style="width: 100%">
+                                <div class="card">
+                                    <div class="card-header" style="padding: inherit; " id="headingTwo">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                            Cluster 2 <img style="max-height: 10px" src="img/arrow/down.png">
+                                        </button>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                        <div class="card-body" style="padding: 2%;">
+                                            <table>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                         <div class="accordion" id="accordionExample" style="width: 100%">
-                            <div class="card">
-                                <div class="card-header" style="padding: inherit; " id="headingThree">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                                        Cluster 3 <img style="max-height: 10px" src="img/arrow/down.png">
-                                    </button>
-                                </div>
-                                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                    <div class="card-body" style="padding: 2%;">
-                                        <table>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Jakarta</td>
-                                            </tr>
-                                        </table>
+                            <div class="accordion" id="accordionExample" style="width: 100%">
+                                <div class="card">
+                                    <div class="card-header" style="padding: inherit; " id="headingThree">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                            Cluster 3 <img style="max-height: 10px" src="img/arrow/down.png">
+                                        </button>
+                                    </div>
+                                    <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                        <div class="card-body" style="padding: 2%;">
+                                            <table>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jakarta</td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <br />
+                            <br />
+                            <p class="card-text" id="information-left-card"> </p>
                         </div>
-                        <br />
-                        <br />
-                        <p class="card-text" id="information-left-card"> </p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-6">
-            <div class="card">
-                <div class="card-header" id="main-card">
-                    Disaster
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title" id="title-main-card"></h5>
-                    <img id="img-main-card" src="" style="width:100%;">
-                    <!--  <div class="row" >
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header" id="main-card">
+                        Disaster
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" id="title-main-card"></h5>
+                        <img id="img-main-card" src="" style="width:100%;">
+                        <!--  <div class="row" >
                         <div class="col-12" id="map" style=""> 
                         
                     </div> -->
-                    <!-- <p class="card-text">Pusing kakkk</p> -->
-                    <div class="input-group-sm">
-                        <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-primary" style="margin: 10px">Information</a>
-                        <a data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2" class="btn btn-primary" style="margin: 10px">Video</a>
-                        <a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3" class="btn btn-primary" style="margin: 10px">Audio</a>
+                        <!-- <p class="card-text">Pusing kakkk</p> -->
+                        <div class="input-group-sm">
+                            <a data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" class="btn btn-primary" style="margin: 10px">Information</a>
+                            <a data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2" class="btn btn-primary" style="margin: 10px">Video</a>
+                            <a data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3" class="btn btn-primary" style="margin: 10px">Audio</a>
+                        </div>
+                        <div class="collapse multi-collapse" id="multiCollapseExample1">
+                            <div class="card card-body" id="information-main-card">
+                                <table>
+                                    <tr>
+                                        <th>Cluster 1 <img src="img/pin/red.png" style="max-height: 25px"></th>
+                                        <th>Cluster 2 <img src="img/pin/blue.png" style="max-height: 25px"></th>
+                                        <th>Cluster 3 <img src="img/pin/purple.png" style="max-height: 25px"></th>
+                                    </tr>
+                                    <tr>
+                                        <td>Daerah Rawan Gempa </td>
+                                        <td>Daerah Siaga Gempa</td>
+                                        <td>Daerah Bahaya Gempa</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div class="collapse multi-collapse" id="multiCollapseExample1">
-                        <div class="card card-body" id="information-main-card">
-                            <table>
-                                <tr>
-                                    <th>Cluster 1 <img src="img/pin/red.png" style="max-height: 25px"></th>
-                                    <th>Cluster 2 <img src="img/pin/blue.png" style="max-height: 25px"></th>
-                                    <th>Cluster 3 <img src="img/pin/purple.png" style="max-height: 25px"></th>
-                                </tr>
-                                <tr>
-                                    <td>Daerah Rawan Gempa </td>
-                                    <td>Daerah Siaga Gempa</td>
-                                    <td>Daerah Bahaya Gempa</td>
-                                </tr>
-                            </table>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-header">
+                        Video / Audio
+                    </div>
+                    <div class="card-body collapse multi-collapse2" id="multiCollapseExample2">
+                        <div class="row">
+                            <iframe id="video-right-card" width="320" height="240" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="card-body collapse multi-collapse3" id="multiCollapseExample3">
+                        <div class="row">
+                            <audio controls>
+                                <source id="audio-right-card" src="" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-3">
-            <div class="card">
-                <div class="card-header">
-                    Video / Audio
-                </div>
-                <div class="card-body collapse multi-collapse2" id="multiCollapseExample2">
-                    <div class="row">
-                        <iframe id="video-right-card" width="320" height="240" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <hr>
-                <div class="card-body collapse multi-collapse3" id="multiCollapseExample3">
-                    <div class="row">
-                        <audio controls>
-                            <source id="audio-right-card" src="" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
-</div>
 </body>
 
 </html>

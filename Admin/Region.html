@@ -313,7 +313,6 @@ $(document).ready(function() {
                         '</tr>';
                 }
                 $('#show_data').html(html);
-                get_data_region();
                 retrive_data_disaster()
                 retrive_data_province()
                 retrive_data_cluster()
@@ -413,13 +412,13 @@ $(document).ready(function() {
             success: function(data) {
                 alert(data[0].message_success)
                 $('#province').val('');
-                ('#region').val('');
+                $('#region').val('');
                 $('#disaster').val('');
                 $('#cluster').val('');
                 $('#longitude').val('');
                 $('#latitude').val('');
 
-                retrive_data_region();
+                get_data_region();
             },
             error: function() {
                 alert("Error")
@@ -441,10 +440,10 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data[0].region)
                 // alert("ss")
-                let province = '';
+                let id_province = '';
+                let id_disaster = '';
+                let id_cluster = '';
                 let region = '';
-                let disaster = '';
-                let cluster = '';
                 let longitude = '';
                 let latitude = '';
                 let i;
@@ -459,9 +458,9 @@ $(document).ready(function() {
 
                 $('#myModal_edit').modal('show');
                 $('#form_province_edit').val(id_province);
-                $('#form_region_edit').val(region);
                 $('#form_disaster_edit').val(id_disaster);
                 $('#form_cluster_edit').val(id_cluster);
+                $('#form_region_edit').val(region);
                 $('#form_longitude_edit').val(longitude);
                 $('#form_latitude_edit').val(latitude);
             },
@@ -472,28 +471,82 @@ $(document).ready(function() {
         });
     });
 
+    $('#id_region').keypress(function(e) {
+
+        var key = e.which;
+        if (key == 13) {
+            let id_region = $('#id_region').val();
+
+            console.log(id_region)
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/view_data_region.php',
+                dataType: "JSON",
+                data: { id_region: id_region },
+                success: function(data) {
+                    console.log(data[0].region)
+                    // alert("ss")
+                    let id_province = '';
+                    let id_disaster = '';
+                    let id_cluster = '';
+                    let region = '';
+                    let longitude = '';
+                    let latitude = '';
+                    let i;
+                    for (i = 0; i < data.length; i++) {
+                        id_province = data[i].id_province;
+                        id_disaster = data[i].id_disaster;
+                        id_cluster = data[i].id_cluster;
+                        region = data[i].region;
+                        longitude = data[i].longitude;
+                        latitude = data[i].latitude;
+                    }
+
+                    $('#myModal_edit').modal('show');
+                    $('#form_province_edit').val(id_province);
+                    $('#form_disaster_edit').val(id_disaster);
+                    $('#form_cluster_edit').val(id_cluster);
+                    $('#form_region_edit').val(region);
+                    $('#form_longitude_edit').val(longitude);
+                    $('#form_latitude_edit').val(latitude);
+                },
+                error: function(data) {
+
+                    alert("eror");
+                }
+            });
+
+            return false;
+        }
+    })
+
     $('#button-save-changes').on('click', function() {
-        let id_cluster = $('#id_cluster').val();
-        let cluster = $('#form_cluster_edit').val();
+        let id_region = $('#id_region').val();
+
+        let id_province = $('#form_province_edit').val();
         let id_disaster = $('#form_disaster_edit').val();
-        let cluster_information = $('#form_cluster_information_edit').val();
+        let id_cluster = $('#form_cluster_edit').val();
+        let region = $('#form_region_edit').val();
+        let longitude = $('#form_longitude_edit').val();
+        let latitude = $('#form_latitude_edit').val();
         // console.log(form_detail_information_edit + "hai " + id_disaster);
         $.ajax({
+
             type: "POST",
-            url: 'http://localhost/GIS/admin/model/edit_data_cluster.php',
+            url: 'http://localhost/GIS/admin/model/edit_data_region.php',
             dataType: "JSON",
-            data: { id_cluster: id_cluster, cluster: cluster, id_disaster: id_disaster, cluster_information: cluster_information },
+            data: { id_region: id_region, id_province: id_province, id_disaster: id_disaster, id_cluster: id_cluster, region: region, longitude: longitude, latitude: latitude },
             success: function(data) {
                 // alert("ss")
-                let cluster = "";
-                let id_disaster = "";
-                let cluster_information = "";
 
                 $('#myModal_edit').modal('hide');
-                $('#form_cluster_edit').val(cluster);
-                $('#form_disaster_edit').val(form_disaster_edit);
-                $('#form_cluster_information_edit').val(cluster_information);
-                retrive_data_cluster();
+                $('#form_province_edit').val('');
+                $('#form_disaster_edit').val('');
+                $('#form_cluster_edit').val('');
+                $('#form_region_edit').val('');
+                $('#form_longitude_edit').val('');
+                $('#form_latitude_edit').val('');
+                get_data_region();
             },
             error: function(data) {
                 alert("eror");
@@ -503,7 +556,169 @@ $(document).ready(function() {
         return false;
     })
 
+    $('#form_region_edit').keypress(function(e) {
 
+        var key = e.which;
+        if (key == 13) {
+
+            let id_region = $('#id_region').val();
+
+            let id_province = $('#form_province_edit').val();
+            let id_disaster = $('#form_disaster_edit').val();
+            let id_cluster = $('#form_cluster_edit').val();
+            let region = $('#form_region_edit').val();
+            let longitude = $('#form_longitude_edit').val();
+            let latitude = $('#form_latitude_edit').val();
+            // console.log(form_detail_information_edit + "hai " + id_disaster);
+            $.ajax({
+
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/edit_data_region.php',
+                dataType: "JSON",
+                data: { id_region: id_region, id_province: id_province, id_disaster: id_disaster, id_cluster: id_cluster, region: region, longitude: longitude, latitude: latitude },
+                success: function(data) {
+                    // alert("ss")
+
+                    $('#myModal_edit').modal('hide');
+                    $('#form_province_edit').val('');
+                    $('#form_disaster_edit').val('');
+                    $('#form_cluster_edit').val('');
+                    $('#form_region_edit').val('');
+                    $('#form_longitude_edit').val('');
+                    $('#form_latitude_edit').val('');
+                    get_data_region();
+                },
+                error: function(data) {
+                    alert("eror");
+
+                }
+            })
+            return false;
+        }
+    })
+
+    $('#form_longitude_edit').keypress(function(e) {
+
+        var key = e.which;
+        if (key == 13) {
+            let id_region = $('#id_region').val();
+
+            let id_province = $('#form_province_edit').val();
+            let id_disaster = $('#form_disaster_edit').val();
+            let id_cluster = $('#form_cluster_edit').val();
+            let region = $('#form_region_edit').val();
+            let longitude = $('#form_longitude_edit').val();
+            let latitude = $('#form_latitude_edit').val();
+            // console.log(form_detail_information_edit + "hai " + id_disaster);
+            $.ajax({
+
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/edit_data_region.php',
+                dataType: "JSON",
+                data: { id_region: id_region, id_province: id_province, id_disaster: id_disaster, id_cluster: id_cluster, region: region, longitude: longitude, latitude: latitude },
+                success: function(data) {
+                    // alert("ss")
+
+                    $('#myModal_edit').modal('hide');
+                    $('#form_province_edit').val('');
+                    $('#form_disaster_edit').val('');
+                    $('#form_cluster_edit').val('');
+                    $('#form_region_edit').val('');
+                    $('#form_longitude_edit').val('');
+                    $('#form_latitude_edit').val('');
+                    get_data_region();
+                },
+                error: function(data) {
+                    alert("eror");
+
+                }
+            })
+
+            return false;
+        }
+    })
+
+    $('#form_latitude_edit').keypress(function(e) {
+
+        var key = e.which;
+        if (key == 13) {
+
+            let id_region = $('#id_region').val();
+
+            let id_province = $('#form_province_edit').val();
+            let id_disaster = $('#form_disaster_edit').val();
+            let id_cluster = $('#form_cluster_edit').val();
+            let region = $('#form_region_edit').val();
+            let longitude = $('#form_longitude_edit').val();
+            let latitude = $('#form_latitude_edit').val();
+            // console.log(form_detail_information_edit + "hai " + id_disaster);
+            $.ajax({
+
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/edit_data_region.php',
+                dataType: "JSON",
+                data: { id_region: id_region, id_province: id_province, id_disaster: id_disaster, id_cluster: id_cluster, region: region, longitude: longitude, latitude: latitude },
+                success: function(data) {
+                    // alert("ss")
+
+                    $('#myModal_edit').modal('hide');
+                    $('#form_province_edit').val('');
+                    $('#form_disaster_edit').val('');
+                    $('#form_cluster_edit').val('');
+                    $('#form_region_edit').val('');
+                    $('#form_longitude_edit').val('');
+                    $('#form_latitude_edit').val('');
+                    get_data_region();
+                },
+                error: function(data) {
+                    alert("eror");
+
+                }
+            })
+            return false;
+        }
+    })
+
+
+    // Function delete data disaster
+    $('#button-delete').on('click', function() {
+        //  alert("hai")
+        let id_region = $('#id_region').val();
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/view_data_region.php',
+            dataType: "JSON",
+            data: { id_region: id_region },
+            success: function(data) {
+                swal({
+                        title: "Are you sure want to delete " + data[0].region + " ?",
+                        text: "Once deleted, you will not be able to recover this imaginary file!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                type: "POST",
+                                url: 'http://localhost/GIS/admin/model/delete_data_region.php',
+                                dataType: "JSON",
+                                data: { id_region: id_region },
+                                success: function(data) {
+                                    swal("Poof! Your imaginary file has been deleted!", {
+                                        icon: "success",
+                                    })
+                                    get_data_region();
+                                }
+                            });
+                        } else {
+                            swal("Your imaginary file is safe!");
+                        }
+                        get_data_region();
+                    });
+            }
+        });
+    })
 })
 </script>
 
