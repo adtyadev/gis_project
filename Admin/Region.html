@@ -288,7 +288,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    get_data_region(); //call function retrive_data_disaster
+    get_data_region(); //call function retrieve_data_disaster
 
     //function show data disaster 
     function get_data_region() {
@@ -313,15 +313,15 @@ $(document).ready(function() {
                         '</tr>';
                 }
                 $('#show_data').html(html);
-                retrive_data_disaster()
-                retrive_data_province()
-                retrive_data_cluster()
+                retrieve_data_disaster()
+                retrieve_data_province()
+                retrieve_data_cluster()
             }
 
         });
     }
 
-    function retrive_data_disaster() {
+    function retrieve_data_disaster() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
@@ -340,7 +340,7 @@ $(document).ready(function() {
         });
     }
 
-    function retrive_data_province() {
+    function retrieve_data_province() {
 
         $.ajax({
             type: 'GET',
@@ -361,7 +361,7 @@ $(document).ready(function() {
         });
     }
 
-    function retrive_data_cluster() {
+    function retrieve_data_cluster() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost/GIS/admin/model/get_data_cluster.php',

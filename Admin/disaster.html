@@ -260,10 +260,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    retrive_data_disaster(); //call function retrive_data_disaster
+    retrieve_data_disaster(); //call function retrieve_data_disaster
 
     //function show data disaster 
-    function retrive_data_disaster() {
+    function retrieve_data_disaster() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
@@ -309,7 +309,7 @@ $(document).ready(function() {
                 $('[name="detail_information"]').val("");
                 /* $('#collapseExample1').removeClass();
                  $('#collapseExample1').addClass("collapse");*/
-                retrive_data_disaster();
+                retrieve_data_disaster();
             },
             error: function() {
                 alert("hai")
@@ -407,7 +407,7 @@ $(document).ready(function() {
                 $('#myModal_edit').modal('hide');
                 $('#form_disaster_edit').val(disaster);
                 $('#form_detail_information_edit').val(detail_information);
-                retrive_data_disaster();
+                retrieve_data_disaster();
             },
             error: function(data) {
                 alert("eror");
@@ -438,7 +438,7 @@ $(document).ready(function() {
                     $('#myModal_edit').modal('hide');
                     $('#form_disaster_edit').val(disaster);
                     $('#form_detail_information_edit').val(detail_information);
-                    retrive_data_disaster();
+                    retrieve_data_disaster();
                 },
                 error: function(data) {
                     alert("eror");
@@ -480,7 +480,7 @@ $(document).ready(function() {
                                     swal("Poof! Your imaginary file has been deleted!", {
                                         icon: "success",
                                     })
-                                    retrive_data_disaster();
+                                    retrieve_data_disaster();
                                 }
                             });
                         } else {

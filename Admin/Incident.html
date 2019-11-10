@@ -119,6 +119,7 @@
                                                 <th>Disaster</th>
                                                 <th>link video</th>
                                                 <th>link audio</th>
+                                                <th>link Image</th>
                                             </tr>
                                         </thead>
                                         <tbody id="show_data">
@@ -163,6 +164,8 @@
                                                 <input type="text" placeholder="video" class="form-control" id="link_video">
                                                 <label class="form-control-label text-uppercase">link audio</label>
                                                 <input type="text" placeholder="audio" class="form-control" id="link_audio">
+                                                <label class="form-control-label text-uppercase">link image</label>
+                                                <input type="text" placeholder="img" class="form-control" id="link_img">
                                             </div>
                                             <div class="form-group">
                                                 <button type="button" class="btn btn-primary" id="button-add">Insert</button>
@@ -224,6 +227,8 @@
                                                     <input type="text" placeholder="video" class="form-control" id="form_video_edit">
                                                     <label class="form-control-label text-uppercase">link audio</label>
                                                     <input type="text" placeholder="audio" class="form-control" id="form_audio_edit">
+                                                    <label class="form-control-label text-uppercase">link image</label>
+                                                    <input type="text" placeholder="img" class="form-control" id="form_img_edit">
                                                 </div>
                                             </form>
                                         </div>
@@ -255,7 +260,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-    get_data_incident(); //call function retrive_data_incident
+    get_data_incident(); //call function retrieve_data_incident
 
     //function show data disaster 
     function get_data_incident() {
@@ -275,11 +280,12 @@ $(document).ready(function() {
                         '<td>' + data[i].disaster + '</td>' +
                         '<td>' + data[i].link_video + '</td>' +
                         '<td>' + data[i].link_audio + '</td>' +
+                        '<td>' + data[i].link_img + '</td>' +
                         '</tr>';
                 }
                 $('#show_data').html(html);
-                retrive_data_disaster();
-                retrive_data_province();
+                retrieve_data_disaster();
+                retrieve_data_province();
             },
             error: function() {
                 alert("error")
@@ -288,7 +294,7 @@ $(document).ready(function() {
         });
     }
 
-    function retrive_data_province() {
+    function retrieve_data_province() {
 
         $.ajax({
             type: 'GET',
@@ -309,7 +315,7 @@ $(document).ready(function() {
         });
     }
 
-    function retrive_data_disaster() {
+    function retrieve_data_disaster() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
@@ -330,10 +336,9 @@ $(document).ready(function() {
 
     //function add data disaster
     $('#collapseExample1').on('hidden.bs.collapse', function() {
-        $('#link_audio').val('');
-        $('#link_video').val('');
         $('#link_video').val('');
         $('#link_audio').val('');
+        $('#link_img').val('');
 
     })
     $('#collapseExample2').on('hidden.bs.collapse', function() {
@@ -345,19 +350,21 @@ $(document).ready(function() {
         let id_disaster = $('#id_disaster').val();
         let link_video = $('#link_video').val();
         let link_audio = $('#link_audio').val();
+        let link_img = $('#link_img').val();
 
         console.log(id_disaster);
         $.ajax({
             type: "POST",
             url: 'http://localhost/GIS/admin/model/add_data_incident.php',
             dataType: "JSON",
-            data: { id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio },
+            data: { id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio, link_img: link_img },
             success: function(data) {
                 alert(data[0].message_success)
                 $('#id_province').val('');
                 $('#id_disaster').val('');
                 $('#link_video').val('');
                 $('#link_audio').val('');
+                $('#link_img').val('')
                 get_data_incident();
             },
             error: function() {
@@ -385,12 +392,14 @@ $(document).ready(function() {
                 let id_disaster = '';
                 let link_video = '';
                 let link_audio = '';
+                let link_img = '';
                 let i;
                 for (i = 0; i < data.length; i++) {
                     id_province = data[i].id_province;
                     id_disaster = data[i].id_disaster;
                     link_video = data[i].link_video;
                     link_audio = data[i].link_audio;
+                    link_img = data[i].link_img;
                 }
 
                 $('#myModal_edit').modal('show');
@@ -398,6 +407,7 @@ $(document).ready(function() {
                 $('#form_disaster_edit').val(id_disaster);
                 $('#form_video_edit').val(link_video);
                 $('#form_audio_edit').val(link_audio);
+                $('#form_img_edit').val(link_img);
             },
             error: function(data) {
 
@@ -424,12 +434,14 @@ $(document).ready(function() {
                     let id_disaster = '';
                     let link_video = '';
                     let link_audio = '';
+                    let link_img = '';
                     let i;
                     for (i = 0; i < data.length; i++) {
                         id_province = data[i].id_province;
                         id_disaster = data[i].id_disaster;
                         link_video = data[i].link_video;
                         link_audio = data[i].link_audio;
+                        link_img = data[i].link_img;
                     }
 
                     $('#myModal_edit').modal('show');
@@ -437,6 +449,7 @@ $(document).ready(function() {
                     $('#form_disaster_edit').val(id_disaster);
                     $('#form_video_edit').val(link_video);
                     $('#form_audio_edit').val(link_audio);
+                    $('#form_img_edit').val(link_img);
                 },
                 error: function(data) {
 
@@ -456,6 +469,7 @@ $(document).ready(function() {
         let id_disaster = $('#form_disaster_edit').val();
         let link_video = $('#form_video_edit').val();
         let link_audio = $('#form_audio_edit').val();
+        let link_img = $('#form_img_edit').val();
 
 
         $.ajax({
@@ -463,7 +477,7 @@ $(document).ready(function() {
             type: "POST",
             url: 'http://localhost/GIS/admin/model/edit_data_incident.php',
             dataType: "JSON",
-            data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio },
+            data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio, link_img: link_img },
             success: function(data) {
                 // alert("ss")
 
@@ -472,6 +486,7 @@ $(document).ready(function() {
                 $('#form_disaster_edit').val('');
                 $('#form_video_edit').val('');
                 $('#form_audio_edit').val('');
+                $('link_img').val('');
                 get_data_incident();
             },
             error: function(data) {
@@ -491,6 +506,7 @@ $(document).ready(function() {
             let id_disaster = $('#form_disaster_edit').val();
             let link_video = $('#form_video_edit').val();
             let link_audio = $('#form_audio_edit').val();
+            let link_img = $('#form_img_edit').val();
 
 
             $.ajax({
@@ -498,7 +514,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: 'http://localhost/GIS/admin/model/edit_data_incident.php',
                 dataType: "JSON",
-                data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio },
+                data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio, link_img: link_img },
                 success: function(data) {
                     // alert("ss")
 
@@ -507,6 +523,7 @@ $(document).ready(function() {
                     $('#form_disaster_edit').val('');
                     $('#form_video_edit').val('');
                     $('#form_audio_edit').val('');
+                    $('link_img').val('');
                     get_data_incident();
                 },
                 error: function(data) {
@@ -527,6 +544,7 @@ $(document).ready(function() {
             let id_disaster = $('#form_disaster_edit').val();
             let link_video = $('#form_video_edit').val();
             let link_audio = $('#form_audio_edit').val();
+            let link_img = $('#form_img_edit').val();
 
 
             $.ajax({
@@ -534,7 +552,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: 'http://localhost/GIS/admin/model/edit_data_incident.php',
                 dataType: "JSON",
-                data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio },
+                data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio, link_img: link_img },
                 success: function(data) {
                     // alert("ss")
 
@@ -543,6 +561,45 @@ $(document).ready(function() {
                     $('#form_disaster_edit').val('');
                     $('#form_video_edit').val('');
                     $('#form_audio_edit').val('');
+                    $('link_img').val('');
+                    get_data_incident();
+                },
+                error: function(data) {
+                    alert("eror");
+
+                }
+            })
+            return false;
+        }
+    })
+
+    $('#form_img_edit').keypress(function(e) {
+        var key = e.which;
+        if (key == 13) {
+            let id_incident = $('#id_incident').val();
+
+            let id_province = $('#form_province_edit').val();
+            let id_disaster = $('#form_disaster_edit').val();
+            let link_video = $('#form_video_edit').val();
+            let link_audio = $('#form_audio_edit').val();
+            let link_img = $('#form_img_edit').val();
+
+
+            $.ajax({
+
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/edit_data_incident.php',
+                dataType: "JSON",
+                data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio, link_img: link_img },
+                success: function(data) {
+                    // alert("ss")
+
+                    $('#myModal_edit').modal('hide');
+                    $('#form_province_edit').val('');
+                    $('#form_disaster_edit').val('');
+                    $('#form_video_edit').val('');
+                    $('#form_audio_edit').val('');
+                    $('link_img').val('');
                     get_data_incident();
                 },
                 error: function(data) {

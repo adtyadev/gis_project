@@ -246,10 +246,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-    retrive_data_cluster(); //call function retrive_data_disaster
+    retrieve_data_cluster(); //call function retrieve_data_disaster
 
     //function show data disaster 
-    function retrive_data_cluster() {
+    function retrieve_data_cluster() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost/GIS/admin/model/get_data_cluster.php',
@@ -268,13 +268,13 @@ $(document).ready(function() {
                         '</tr>';
                 }
                 $('#show_data').html(html);
-                retrive_data_disaster();
+                retrieve_data_disaster();
             }
 
         });
     }
 
-    function retrive_data_disaster() {
+    function retrieve_data_disaster() {
         $.ajax({
             type: 'GET',
             url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
@@ -318,7 +318,7 @@ $(document).ready(function() {
                 $('[name="cluster_information"]').val("");
                 /* $('#collapseExample1').removeClass();
                  $('#collapseExample1').addClass("collapse");*/
-                retrive_data_cluster();
+                retrieve_data_cluster();
             },
             error: function() {
                 alert("Erro")
@@ -384,7 +384,7 @@ $(document).ready(function() {
                 $('#form_cluster_edit').val(cluster);
                 $('#form_disaster_edit').val(form_disaster_edit);
                 $('#form_cluster_information_edit').val(cluster_information);
-                retrive_data_cluster();
+                retrieve_data_cluster();
             },
             error: function(data) {
                 alert("eror");
@@ -418,7 +418,7 @@ $(document).ready(function() {
                     $('#form_cluster_edit').val(cluster);
                     $('#form_disaster_edit').val(form_disaster_edit);
                     $('#form_cluster_information_edit').val(cluster_information);
-                    retrive_data_cluster();
+                    retrieve_data_cluster();
                 },
                 error: function(data) {
                     alert("eror");
@@ -455,7 +455,7 @@ $(document).ready(function() {
                     $('#form_cluster_edit').val(cluster);
                     $('#form_disaster_edit').val(form_disaster_edit);
                     $('#form_cluster_information_edit').val(cluster_information);
-                    retrive_data_cluster();
+                    retrieve_data_cluster();
                 },
                 error: function(data) {
                     alert("eror");
@@ -496,13 +496,13 @@ $(document).ready(function() {
                                     swal("Poof! Your imaginary file has been deleted!", {
                                         icon: "success",
                                     })
-                                    retrive_data_disaster();
+                                    retrieve_data_cluster();
                                 }
                             });
                         } else {
                             swal("Your imaginary file is safe!");
                         }
-                        retrive_data_cluster();
+                        retrieve_data_cluster();
                     });
             }
         });
