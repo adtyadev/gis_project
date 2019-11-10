@@ -250,6 +250,7 @@
 <!--     <script src="vendor/chart.js/Chart.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <!--     <script src="js/charts-home.js"></script> -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="js/front.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -404,6 +405,197 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('#id_incident').keypress(function(e) {
+        var key = e.which;
+        if (key == 13) {
+            let id_incident = $('#id_incident').val();
+
+            console.log(id_incident)
+            $.ajax({
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/view_data_incident.php',
+                dataType: "JSON",
+                data: { id_incident: id_incident },
+                success: function(data) {
+                    console.log(data[0].id_incident)
+                    // alert("ss")
+                    let id_province = '';
+                    let id_disaster = '';
+                    let link_video = '';
+                    let link_audio = '';
+                    let i;
+                    for (i = 0; i < data.length; i++) {
+                        id_province = data[i].id_province;
+                        id_disaster = data[i].id_disaster;
+                        link_video = data[i].link_video;
+                        link_audio = data[i].link_audio;
+                    }
+
+                    $('#myModal_edit').modal('show');
+                    $('#form_province_edit').val(id_province);
+                    $('#form_disaster_edit').val(id_disaster);
+                    $('#form_video_edit').val(link_video);
+                    $('#form_audio_edit').val(link_audio);
+                },
+                error: function(data) {
+
+                    alert("eror");
+                }
+            });
+            return false;
+        }
+
+
+    })
+
+    $('#button-save-changes').on('click', function() {
+        let id_incident = $('#id_incident').val();
+
+        let id_province = $('#form_province_edit').val();
+        let id_disaster = $('#form_disaster_edit').val();
+        let link_video = $('#form_video_edit').val();
+        let link_audio = $('#form_audio_edit').val();
+
+
+        $.ajax({
+
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/edit_data_incident.php',
+            dataType: "JSON",
+            data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio },
+            success: function(data) {
+                // alert("ss")
+
+                $('#myModal_edit').modal('hide');
+                $('#form_province_edit').val('');
+                $('#form_disaster_edit').val('');
+                $('#form_video_edit').val('');
+                $('#form_audio_edit').val('');
+                get_data_incident();
+            },
+            error: function(data) {
+                alert("eror");
+
+            }
+        })
+        return false;
+    })
+
+    $('#form_video_edit').keypress(function(e) {
+        var key = e.which;
+        if (key == 13) {
+            let id_incident = $('#id_incident').val();
+
+            let id_province = $('#form_province_edit').val();
+            let id_disaster = $('#form_disaster_edit').val();
+            let link_video = $('#form_video_edit').val();
+            let link_audio = $('#form_audio_edit').val();
+
+
+            $.ajax({
+
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/edit_data_incident.php',
+                dataType: "JSON",
+                data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio },
+                success: function(data) {
+                    // alert("ss")
+
+                    $('#myModal_edit').modal('hide');
+                    $('#form_province_edit').val('');
+                    $('#form_disaster_edit').val('');
+                    $('#form_video_edit').val('');
+                    $('#form_audio_edit').val('');
+                    get_data_incident();
+                },
+                error: function(data) {
+                    alert("eror");
+
+                }
+            })
+            return false;
+        }
+    })
+
+    $('#form_audio_edit').keypress(function(e) {
+        var key = e.which;
+        if (key == 13) {
+            let id_incident = $('#id_incident').val();
+
+            let id_province = $('#form_province_edit').val();
+            let id_disaster = $('#form_disaster_edit').val();
+            let link_video = $('#form_video_edit').val();
+            let link_audio = $('#form_audio_edit').val();
+
+
+            $.ajax({
+
+                type: "POST",
+                url: 'http://localhost/GIS/admin/model/edit_data_incident.php',
+                dataType: "JSON",
+                data: { id_incident: id_incident, id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio },
+                success: function(data) {
+                    // alert("ss")
+
+                    $('#myModal_edit').modal('hide');
+                    $('#form_province_edit').val('');
+                    $('#form_disaster_edit').val('');
+                    $('#form_video_edit').val('');
+                    $('#form_audio_edit').val('');
+                    get_data_incident();
+                },
+                error: function(data) {
+                    alert("eror");
+
+                }
+            })
+            return false;
+        }
+    })
+
+
+    // Function delete data disaster
+    $('#button-delete').on('click', function() {
+        //  alert("hai")
+        let id_incident = $('#id_incident').val();
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/view_data_incident.php',
+            dataType: "JSON",
+            data: { id_incident: id_incident },
+            success: function(data) {
+                swal({
+                        title: "Are you sure want to delete id: " + data[0].id_incident + " ?",
+                        text: "Once deleted, you will not be able to recover this imaginary file!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                type: "POST",
+                                url: 'http://localhost/GIS/admin/model/delete_data_incident.php',
+                                dataType: "JSON",
+                                data: { id_incident: id_incident },
+                                success: function(data) {
+                                    swal("Poof! Your imaginary file has been deleted!", {
+                                        icon: "success",
+                                    })
+                                    get_data_incident();
+                                }
+                            });
+                        } else {
+                            swal("Your imaginary file is safe!");
+                        }
+                        get_data_incident();
+                    });
+            }
+        });
+    })
+
+
 
 })
 </script>
