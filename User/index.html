@@ -146,8 +146,8 @@
 </html>
 <!-- Javascript -->
 <script src="../admin/vendor/jquery/jquery.min.js"></script>
-<script src="../admin/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="../admin/vendor/jquery.cookie/jquery.cookie.js"> </script>
+<!-- <script src="../admin/vendor/bootstrap/js/bootstrap.min.js"></script> -->
+<!-- <script src="../admin/vendor/jquery.cookie/jquery.cookie.js"> </script> -->
 <script type="text/javascript">
 $(document).ready(function() {
     // retrieve display options
@@ -193,11 +193,15 @@ $(document).ready(function() {
     }
 
     $('#button-find').on('click', function() {
+        let id_province = $('#province').val();
+        let id_disaster = $('#disaster').val();
+        console.log(id_disaster);
         $.ajax({
-            type: 'GET',
+            type: 'post',
             url: 'http://localhost/GIS/admin/model/retrieve_data_view_user.php',
             async: true,
             dataType: 'json',
+            data: { id_province: id_province, id_disaster: id_disaster },
             success: function(data) {
                 let html_cluster = '';
                 let html_heading_cluster = '';
@@ -215,6 +219,32 @@ $(document).ready(function() {
                 }
                 $('#cluster_information').html(html_cluster);
                 $('#cluster_heading').html(html_heading_cluster);
+            }
+
+        });
+
+        $.ajax({
+            type: 'post',
+            url: 'http://localhost/GIS/admin/model/retrieve_data_cluster_user.php',
+            async: true,
+            dataType: 'json',
+            data: { id_province: id_province, id_disaster: id_disaster },
+            success: function(data) {
+                let html_cluster1 = '';
+                let html_cluster2 = '';
+                let html_cluster3 = '';
+                let i;
+
+                for (i = 0; i < data.length; i++) {
+                    if (data[i].cluster == "Cluster 1") html_cluster1 += '<tr><td>' + data[i].region + '</td></tr>';
+                    else if (data[i].cluster == "Cluster 2") html_cluster2 += '<tr><td>' + data[i].region + '</td></tr>';
+                    else if (data[i].cluster == "Cluster 3") html_cluster3 += '<tr><td>' + data[i].region + '</td></tr>';
+                }
+
+                $("#table-cluster_1").html(html_cluster1);
+                $("#table-cluster_2").html(html_cluster2);
+                $("#table-cluster_3").html(html_cluster3);
+
             }
 
         });

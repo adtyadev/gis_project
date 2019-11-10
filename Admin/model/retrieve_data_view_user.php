@@ -3,8 +3,8 @@
 include_once("config.php");
 
 //$id_incident = $_POST['id_incident'];
-$id_province = 1;
-$id_disaster = 1;
+    $id_province=$_POST['id_province'];
+	$id_disaster=$_POST['id_disaster'];
 // Fetch all incident data from database
 $result = mysqli_query($mysqli, "SELECT incident.link_video, incident.link_audio,incident.link_img
 from incident
