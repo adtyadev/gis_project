@@ -117,46 +117,11 @@
                                                 <th>Id incident</th>
                                                 <th>Province</th>
                                                 <th>Disaster</th>
-                                                <th>Video Link</th>
-                                                <th>Audio Link</th>
+                                                <th>link video</th>
+                                                <th>link audio</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>Otto</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>Otto</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>Otto</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Sam</td>
-                                                <td>Nevoresky</td>
-                                                <td>Otto</td>
-                                                <td>Otto</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Sam</td>
-                                                <td>Nevoresky</td>
-                                                <td>Otto</td>
-                                                <td>Otto</td>
-                                            </tr>
+                                        <tbody id="show_data">
                                         </tbody>
                                     </table>
                                 </div>
@@ -185,30 +150,22 @@
                                         <form>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Province</label>
-                                                <select name="province" class="form-control">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
+                                                <select name="province" class="form-control" id="id_province">
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-control-label text-uppercase">Disaster</label>
-                                                <select name="disaster" class="form-control">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
+                                                <select name="disaster" class="form-control" id="id_disaster">
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label class="form-control-label text-uppercase">Video Link</label>
-                                                <input type="text" placeholder="video" class="form-control">
-                                                <label class="form-control-label text-uppercase">Audio Link</label>
-                                                <input type="text" placeholder="audio" class="form-control">
+                                                <label class="form-control-label text-uppercase">link video</label>
+                                                <input type="text" placeholder="video" class="form-control" id="link_video">
+                                                <label class="form-control-label text-uppercase">link audio</label>
+                                                <input type="text" placeholder="audio" class="form-control" id="link_audio">
                                             </div>
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Insert</button>
+                                                <button type="button" class="btn btn-primary" id="button-add">Insert</button>
                                             </div>
                                         </form>
                                     </div>
@@ -223,20 +180,17 @@
                                         <p>Lorem ipsum dolor sit amet consectetur.</p>
                                         <form>
                                             <div class="form-group">
-                                                <label class="form-control-label text-uppercase">id data</label>
-                                                <input type="text" placeholder="id data" class="form-control">
+                                                <label class="form-control-label text-uppercase">id incident</label>
+                                                <input type="text" placeholder="id data" class="form-control" id="id_incident">
                                             </div>
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <button type="submit" class="btn btn-primary">View</button>
-                                                    </div>
-                                                    <div class="col-lg-4">
-                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+                                                    <div class="col-lg-6">
+                                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" id="button-edit">
                                                             Edit</button>
                                                     </div>
-                                                    <div class="col-lg-4">
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <div class="col-lg-6">
+                                                        <button type="submit" class="btn btn-danger" id="button-delete">Delete</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -245,7 +199,7 @@
                                 </div>
                             </div>
                             <!-- Modal-->
-                            <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+                            <div id="myModal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
                                 <div role="document" class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -255,35 +209,27 @@
                                         <div class="modal-body">
                                             <p>Lorem ipsum dolor sit amet consectetur.</p>
                                             <form>
-                                                 <div class="form-group">
-                                                <label class="form-control-label text-uppercase">Province</label>
-                                                <select name="province" class="form-control">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-control-label text-uppercase">Disaster</label>
-                                                <select name="disaster" class="form-control">
-                                                    <option>option 1</option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-control-label text-uppercase">Video Link</label>
-                                                <input type="text" placeholder="video" class="form-control">
-                                                <label class="form-control-label text-uppercase">Audio Link</label>
-                                                <input type="text" placeholder="audio" class="form-control">
-                                            </div>
+                                                <div class="form-group">
+                                                    <label class="form-control-label text-uppercase">Province</label>
+                                                    <select name="province" class="form-control" id="form_province_edit">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-control-label text-uppercase">Disaster</label>
+                                                    <select name="disaster" class="form-control" id="form_disaster_edit">
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="form-control-label text-uppercase">link video</label>
+                                                    <input type="text" placeholder="video" class="form-control" id="form_video_edit">
+                                                    <label class="form-control-label text-uppercase">link audio</label>
+                                                    <input type="text" placeholder="audio" class="form-control" id="form_audio_edit">
+                                                </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-primary" id="button-save-changes">Save changes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -295,19 +241,171 @@
             </div>
         </div>
     </div>
-    <!-- JavaScript files-->
-    <script type="text/javascript">
-    $(document).ready(function() {
-                $("#click").click(function() {}
-    </script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="js/charts-home.js"></script>
-    <script src="js/front.js"></script>
 </body>
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"> </script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+<!--     <script src="vendor/chart.js/Chart.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<!--     <script src="js/charts-home.js"></script> -->
+<script src="js/front.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    get_data_incident(); //call function retrive_data_incident
+
+    //function show data disaster 
+    function get_data_incident() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_incident.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html = '';
+                let i;
+
+                for (i = 0; i < data.length; i++) {
+                    html += '<tr>' +
+                        '<td scope="row">' + data[i].id_incident + '</td>' +
+                        '<td>' + data[i].province + '</td>' +
+                        '<td>' + data[i].disaster + '</td>' +
+                        '<td>' + data[i].link_video + '</td>' +
+                        '<td>' + data[i].link_audio + '</td>' +
+                        '</tr>';
+                }
+                $('#show_data').html(html);
+                retrive_data_disaster();
+                retrive_data_province();
+            },
+            error: function() {
+                alert("error")
+            }
+
+        });
+    }
+
+    function retrive_data_province() {
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_province.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html_option = '';
+                let i;
+
+                for (i = 0; i < data.length; i++) {
+                    html_option += '<option value="' + data[i].id_province + '">' + data[i].province + '</option>';
+                }
+                $('#id_province').html(html_option);
+                $('#form_province_edit').html(html_option);
+            }
+
+        });
+    }
+
+    function retrive_data_disaster() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost/GIS/admin/model/get_data_disaster.php',
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                let html_option = '';
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    html_option += '<option value="' + data[i].id_disaster + '">' + data[i].disaster + '</option>';
+                }
+                $('#id_disaster').html(html_option);
+                $('#form_disaster_edit').html(html_option);
+            }
+
+        });
+    }
+
+    //function add data disaster
+    $('#collapseExample1').on('hidden.bs.collapse', function() {
+        $('#link_audio').val('');
+        $('#link_video').val('');
+        $('#link_video').val('');
+        $('#link_audio').val('');
+
+    })
+    $('#collapseExample2').on('hidden.bs.collapse', function() {
+        $('#id_incident').val('');
+    })
+
+    $('#button-add').on('click', function() {
+        let id_province = $('#id_province').val();
+        let id_disaster = $('#id_disaster').val();
+        let link_video = $('#link_video').val();
+        let link_audio = $('#link_audio').val();
+
+        console.log(id_disaster);
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/add_data_incident.php',
+            dataType: "JSON",
+            data: { id_province: id_province, id_disaster: id_disaster, link_video: link_video, link_audio: link_audio },
+            success: function(data) {
+                alert(data[0].message_success)
+                $('#id_province').val('');
+                $('#id_disaster').val('');
+                $('#link_video').val('');
+                $('#link_audio').val('');
+                get_data_incident();
+            },
+            error: function() {
+                alert("Error")
+            }
+        });
+        return false;
+    });
+
+
+    //function edit data disaster
+    $('#button-edit').on('click', function() {
+        let id_incident = $('#id_incident').val();
+
+        console.log(id_incident)
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost/GIS/admin/model/view_data_incident.php',
+            dataType: "JSON",
+            data: { id_incident: id_incident },
+            success: function(data) {
+                console.log(data[0].id_incident)
+                // alert("ss")
+                let id_province = '';
+                let id_disaster = '';
+                let link_video = '';
+                let link_audio = '';
+                let i;
+                for (i = 0; i < data.length; i++) {
+                    id_province = data[i].id_province;
+                    id_disaster = data[i].id_disaster;
+                    link_video = data[i].link_video;
+                    link_audio = data[i].link_audio;
+                }
+
+                $('#myModal_edit').modal('show');
+                $('#form_province_edit').val(id_province);
+                $('#form_disaster_edit').val(id_disaster);
+                $('#form_video_edit').val(link_video);
+                $('#form_audio_edit').val(link_audio);
+            },
+            error: function(data) {
+
+                alert("eror");
+            }
+        });
+    });
+
+})
+</script>
 
 </html>
